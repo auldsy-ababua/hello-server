@@ -5,14 +5,24 @@ var app = express();
 app.get('/', function(request, response) {
     response.send("Hello World");
 });
-app.get('/mario', function(request, response) {
-    response.send("Hello Mario");
+
+app.get('/headers', function(request, response) {
+    response.send({
+      "host":"localhost:8080",
+      "user-agent":"curl/7.49.1","accept":"*/*"
+    });
 });
 
-app.get('/colin/:lastname', function(request, response) {
-    var first = request.params.firstname;
-    var last = request.params.lastname;
-    response.send(["Hi", first, last].join(" "));
+app.get('/headers/:header_name', function(request, response) {
+    var headers = {
+      "host":"localhost:8080",
+      "user-agent":"curl/7.49.1",
+      "accept":"*/*",
+      "colin": "mario",
+      "version": "1.1"
+    }
+    var header_name = request.params.header_name;
+    response.send(headers[header_name]);
 });
 
 app.get('/:firstname/:lastname', function(request, response) {
@@ -21,12 +31,11 @@ app.get('/:firstname/:lastname', function(request, response) {
     response.send(["Hello", first, last].join(" "));
 });
 
-app.listen(process.env.PORT, process.env.IP);
+app.get('/', function(request, response) {
+    response.json({
+        name: 'Kim Gordon',
+        instrument: 'Bass'
+    });
+});
 
-
-var bar = "hello";
-function typeOfTester (){
-    if
-}
-typeof null === "object";
-instanceof 
+app.listen(8080);
